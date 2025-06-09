@@ -1,6 +1,9 @@
 from typing import List
 from pydantic import BaseModel, Field, computed_field
 
+class TextRequest(BaseModel):
+    text: str
+
 class Ingredient(BaseModel):
     name: str = Field(..., alias="food_name")
     serving_qty: float = Field(..., alias="serving_qty")
