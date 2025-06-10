@@ -1,6 +1,7 @@
 import {Box, Button, CircularProgress, Container, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 import useMeal from "../../hooks/useMeal.js";
+import Meal from "../components/meal/Meal.jsx";
 
 const initialHelperData = {
     "submitted": false,
@@ -24,6 +25,10 @@ const HomePage = () => {
         const {name, value} = event.target;
         setHelperData({...helperData, [name]: value});
     };
+
+    const handleClear = () => {
+        setHelperData(initialHelperData)
+    }
 
 
     return (
@@ -54,12 +59,13 @@ const HomePage = () => {
                   flexDirection: 'column'
               }}
               >
-                  <Typography variant={'h6'} sx={{ mb: '0.3em', minWidth: '90%', opacity: '70%' }}>
+                  <Typography variant={'h6'} sx={{ mb: '0.3em', opacity: '70%' }}>
                       Please provide a meal description
                   </Typography>
                   <TextField
                       multiline
                       minRows={5}
+                      maxRows={5}
                       name={'text'}
                       value={helperData.text}
                       onChange={handleChange}
@@ -68,21 +74,25 @@ const HomePage = () => {
                   />
                   <Button onClick={handleSubmit} variant={'contained'} sx={{marginTop: '1.5em', backgroundColor: '#0000A3'}}>Submit</Button>
               </Box>
-              {helperData.submitted &&
-                  <hr style={{width: '80%', marginTop: '1.5em', marginBottom: '1.5em', opacity: '60%' }}/>
-              }
               {loading &&
                   <Box minHeight={'30vh'} display={"flex"} alignItems={'center'} justifyContent={'center'}>
                       <CircularProgress />
                   </Box>
               }
-              {meal &&
-                  <Box minHeight={'30vh'} display={"flex"} alignItems={'center'} justifyContent={'center'}>
-                      <Typography variant={'h5'}>
-                          Total Calories: {meal.total_calories}
-                      </Typography>
-                  </Box>
-              }
+              {helperData.submitted && !loading && meal &&
+                  <>
+                      <Box minWidth={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+                          <hr style={{width: '80%', marginTop: '1.5em', marginBottom: '1.5em', opacity: '60%' }}/>
+                          <Typography variant={'h6'} sx={{ mb: '0.5em', opacity: '70%'}}>
+                              Analysis results
+                          </Typography>
+                      </Box>
+                      <Box minHeight={'30vh'} display={"flex"} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+                          <Meal meal={meal}></Meal>
+                          <Button onClick={handleClear} variant={'contained'} sx={{marginTop: '1.5em', backgroundColor: '#0000A3'}}>Clear</Button>
+                      </Box>
+                  </>
+          }
           </Container>
       </>
     );
