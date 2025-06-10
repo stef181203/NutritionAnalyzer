@@ -1,7 +1,7 @@
 import {Box, Button, CircularProgress, Container, TextField, Typography} from "@mui/material";
 import {useState} from "react";
 import useMeal from "../../hooks/useMeal.js";
-import Meal from "../components/meal/Meal.jsx";
+import MealResults from "../components/mealResults/MealResults.jsx";
 
 const initialHelperData = {
     "submitted": false,
@@ -13,12 +13,14 @@ const HomePage = () => {
     const {meal, loading, onSubmit} = useMeal()
 
     const handleSubmit = () => {
-        setHelperData(prevState => ({
-                ...prevState,
-                submitted: true
-            })
-        );
-        onSubmit(helperData.text)
+        if(helperData.text.trim().length > 0) {
+            setHelperData(prevState => ({
+                    ...prevState,
+                    submitted: true
+                })
+            );
+            onSubmit(helperData.text)
+        }
     }
 
     const handleChange = (event) => {
@@ -51,7 +53,7 @@ const HomePage = () => {
               boxShadow: '3px 3px 15px rgba(0,0,0,0.5)',
               paddingY: '2em'
           }}
-          maxWidth={'sm'}>
+          maxWidth={'md'}>
               <Box minHeight={'30vh'} minWidth={'100%'} sx={{
                   justifyContent: 'start',
                   alignItems: 'center',
@@ -59,7 +61,7 @@ const HomePage = () => {
                   flexDirection: 'column'
               }}
               >
-                  <Typography variant={'h6'} sx={{ mb: '0.3em', opacity: '70%' }}>
+                  <Typography variant={'h6'} sx={{ mb: '0.3em' }}>
                       Please provide a meal description
                   </Typography>
                   <TextField
@@ -81,18 +83,13 @@ const HomePage = () => {
               }
               {helperData.submitted && !loading && meal &&
                   <>
-                      <Box minWidth={'100%'} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
-                          <hr style={{width: '80%', marginTop: '1.5em', marginBottom: '1.5em', opacity: '60%' }}/>
-                          <Typography variant={'h6'} sx={{ mb: '0.5em', opacity: '70%'}}>
-                              Analysis results
-                          </Typography>
-                      </Box>
+                      <hr style={{width: '80%', marginTop: '1.5em', opacity: '60%' }}/>
                       <Box minHeight={'30vh'} display={"flex"} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
-                          <Meal meal={meal}></Meal>
+                          <MealResults meal={meal}></MealResults>
                           <Button onClick={handleClear} variant={'contained'} sx={{marginTop: '1.5em', backgroundColor: '#0000A3'}}>Clear</Button>
                       </Box>
                   </>
-          }
+              }
           </Container>
       </>
     );

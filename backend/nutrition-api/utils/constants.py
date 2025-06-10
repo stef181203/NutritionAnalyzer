@@ -1,5 +1,6 @@
 SUMMARIZE_TEXT_PROMPT = ("I need you to summarize the meal ingredients from the next text with their quantity:\n"
                          "'{text}'\n"
+                         "If the text cannot be classified as valid return 'NO INGREDIENTS'\n"
                          "If there are no ingredients return to me 'NO INGREDIENTS'\n"
                          "Please type the ingredient names with uppercase first letter\n"
                          "Please send back only the result without any additional information/messages and without notes.\n"

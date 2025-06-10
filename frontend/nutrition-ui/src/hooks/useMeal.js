@@ -11,10 +11,10 @@ const useMeal = () => {
     const [state, setState] = useState(initialState);
 
     const onSubmit = useCallback((data) => {
-        setState(prevState => ({
-            meal: prevState.meal,
+        setState({
+            meal: null,
             loading: true
-        }));
+        });
         mealRepository
             .submit({ text: data })
             .then((response) => {
