@@ -32,19 +32,19 @@ const MealResults = ({meal}) => {
                     <Paper variant={'outlined'} style={{padding: '1em 0 0.5em 1em'}}>
                         <Typography variant={'body1'} sx={{ mb: '0.5em', display: 'flex'}}>
                             <LunchDiningIcon sx={{marginRight: '0.3em'}}></LunchDiningIcon>
-                            Total fat: {meal.total_fat}g
+                            Total fat: <strong style={{marginLeft: '0.4em'}}>{meal.total_fat}g</strong>
                         </Typography>
                         <Typography variant={'body1'} sx={{ mb: '0.5em', display: 'flex'}}>
                             <CakeIcon sx={{marginRight: '0.3em'}}></CakeIcon>
-                            Total carbs: {meal.total_carbs}g
+                            Total carbs: <strong style={{marginLeft: '0.4em'}}>{meal.total_carbs}g</strong>
                         </Typography>
                         <Typography variant={'body1'} sx={{ mb: '0.5em', display: 'flex'}}>
                             <EggIcon sx={{marginRight: '0.3em'}}></EggIcon>
-                            Total protein: {meal.total_protein}g
+                            Total protein: <strong style={{marginLeft: '0.4em'}}>{meal.total_protein}g</strong>
                         </Typography>
                         <Typography variant={'h6'} sx={{ mb: '0.5em', display: 'flex'}}>
                             <FastfoodIcon fontSize={'large'} sx={{marginRight: '0.3em'}}></FastfoodIcon>
-                            Total calories: {meal.total_calories}kcal
+                            Total calories: <strong style={{marginLeft: '0.4em'}}>{meal.total_calories}kcal</strong>
                         </Typography>
                     </Paper>
                 </Grid>

@@ -10,7 +10,7 @@ const initialHelperData = {
 
 const HomePage = () => {
     const [helperData, setHelperData] = useState(initialHelperData)
-    const {meal, loading, onSubmit} = useMeal()
+    const {meal, loading, error, onSubmit} = useMeal()
 
     const handleSubmit = () => {
         if(helperData.text.trim().length > 0) {
@@ -61,8 +61,13 @@ const HomePage = () => {
                   flexDirection: 'column'
               }}
               >
-                  <Typography variant={'h6'} sx={{ mb: '0.3em' }}>
+                  <Typography variant={'h6'}>
                       Please provide a meal description
+                  </Typography>
+                  <Typography variant={'body1'} textAlign={'center'} fontStyle={'italic'} marginBottom={'0.5em'} marginTop={'0.3em'}
+                              sx={{opacity: '75%'}}>
+                      (Note: For a valid model reasoning, make sure input contains:
+                      name, serving quantity and serving unit of each ingredient)
                   </Typography>
                   <TextField
                       multiline
@@ -74,21 +79,43 @@ const HomePage = () => {
                       placeholder="Ingredients..."
                       sx={{ minWidth: '90%'}}
                   />
-                  <Button onClick={handleSubmit} variant={'contained'} sx={{marginTop: '1.5em', backgroundColor: '#0000A3'}}>Submit</Button>
+                  <Button onClick={handleSubmit} variant={'contained'} sx={{
+                      marginTop: '1.5em',
+                      backgroundColor: '#0000A3'
+                  }}>
+                      Submit
+                  </Button>
               </Box>
+              {/* Loading circle */}
               {loading &&
                   <Box minHeight={'30vh'} display={"flex"} alignItems={'center'} justifyContent={'center'}>
                       <CircularProgress />
                   </Box>
               }
-              {helperData.submitted && !loading && meal &&
+              {/* Data display */}
+              {helperData.submitted && !loading && !error && meal &&
                   <>
-                      <hr style={{width: '80%', marginTop: '1.5em', opacity: '60%' }}/>
+                      <hr style={{
+                          width: '80%',
+                          marginTop: '1.5em',
+                          opacity: '60%'
+                      }}/>
                       <Box minHeight={'30vh'} display={"flex"} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
                           <MealResults meal={meal}></MealResults>
-                          <Button onClick={handleClear} variant={'contained'} sx={{marginTop: '1.5em', backgroundColor: '#0000A3'}}>Clear</Button>
+                          <Button onClick={handleClear} variant={'contained'} sx={{
+                              marginTop: '1.5em',
+                              backgroundColor: '#0000A3'
+                          }}>
+                              Clear
+                          </Button>
                       </Box>
                   </>
+              }
+              {/* Error handling */}
+              {error && !loading &&
+                  <Typography variant={'h5'} color={'red'} textAlign={'center'}>
+                      {error}
+                  </Typography>
               }
           </Container>
       </>

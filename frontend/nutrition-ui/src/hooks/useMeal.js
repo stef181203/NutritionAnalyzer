@@ -4,6 +4,7 @@ import mealRepository from "../repository/mealRepository.js";
 const initialState = {
     "meal": null,
     "loading": false,
+    "error": ''
 };
 
 
@@ -11,19 +12,28 @@ const useMeal = () => {
     const [state, setState] = useState(initialState);
 
     const onSubmit = useCallback((data) => {
-        setState({
-            meal: null,
-            loading: true
-        });
+        setState(prevState => ({
+            ...prevState,
+            "loading": true
+        }));
         mealRepository
             .submit({ text: data })
             .then((response) => {
                 setState({
                     "meal": response.data,
-                    loading: false
+                    "loading": false,
+                    "error": ''
                 })
             })
-            .catch((error) => console.log(error));
+            .catch((error) => {
+                if(error.response.status === 422) {
+                    setState({
+                        "meal": null,
+                        "loading": false,
+                        "error": error.response.data.detail
+                    })
+                }
+            });
     }, [])
 
     return {...state, onSubmit }
