@@ -1,2 +1,4 @@
 backend/.venv/
 backend/nutrition-api/.env
+backend/nutrition-api/__pycache__/
+*.pyc
