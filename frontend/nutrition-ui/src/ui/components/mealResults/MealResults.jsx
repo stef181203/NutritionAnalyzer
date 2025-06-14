@@ -25,7 +25,7 @@ const MealResults = ({meal}) => {
                         </ul>
                     </Paper>
                 </Grid>
-                <Grid item size={5}>
+                <Grid item size={6} sx={{paddingRight: '0.2em'}}>
                     <Typography variant={'h6'} textAlign={'center'} sx={{ mb: '0.5em' }}>
                         Macros
                     </Typography>
