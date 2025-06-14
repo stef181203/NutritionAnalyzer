@@ -61,12 +61,12 @@ const HomePage = () => {
                   flexDirection: 'column'
               }}
               >
-                  <Typography variant={'h6'}>
+                  <Typography variant={'h6'} fontWeight={'bold'}>
                       Please provide a meal description
                   </Typography>
                   <Typography variant={'body1'} textAlign={'center'} fontStyle={'italic'} marginBottom={'0.5em'} marginTop={'0.3em'}
                               sx={{opacity: '75%'}}>
-                      (Note: For a valid model reasoning, make sure input contains:
+                      (Note: For a valid model reasoning, make sure input contains: <br />
                       name, serving quantity and serving unit of each ingredient)
                   </Typography>
                   <TextField
@@ -77,7 +77,7 @@ const HomePage = () => {
                       value={helperData.text}
                       onChange={handleChange}
                       placeholder="Ingredients..."
-                      sx={{ minWidth: '90%'}}
+                      sx={{ minWidth: '90%', marginTop: '0.5em'}}
                   />
                   <Button onClick={handleSubmit} variant={'contained'} sx={{
                       marginTop: '1.5em',
@@ -113,7 +113,7 @@ const HomePage = () => {
               }
               {/* Error handling */}
               {error && !loading &&
-                  <Typography variant={'h5'} color={'red'} textAlign={'center'}>
+                  <Typography variant={'h5'} color={'red'} textAlign={'center'} marginTop={'1.5em'}>
                       {error}
                   </Typography>
               }

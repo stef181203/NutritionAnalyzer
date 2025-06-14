@@ -25,15 +25,11 @@ const useMeal = () => {
                     "error": ''
                 })
             })
-            .catch((error) => {
-                if(error.response.status === 422) {
-                    setState({
-                        "meal": null,
-                        "loading": false,
-                        "error": error.response.data.detail
-                    })
-                }
-            });
+            .catch((error) => setState({
+                "meal": null,
+                "loading": false,
+                "error": error.response.data.detail
+            }));
     }, [])
 
     return {...state, onSubmit }
