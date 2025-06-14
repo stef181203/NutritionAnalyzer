@@ -3,7 +3,7 @@ from huggingface_hub import InferenceClient
 from clients.llm_client import LLMClient
 from clients.nutrition_client import NutritionAPIClient
 from utils.constants import SUMMARIZE_TEXT_PROMPT
-from utils.helpers import ParseHelper
+from utils.helpers import InputHelper
 
 class CommunicationService(InferenceClient):
     @staticmethod
@@ -13,10 +13,10 @@ class CommunicationService(InferenceClient):
         first_content = first_response.content
 
         if "no ingredients" in first_content.lower():
-            raise HTTPException(status_code=422, detail="At least one ingredient is required.")
+            raise HTTPException(status_code=422, detail="Input is not a valid recipe or list of ingredients")
 
         second_response = await CommunicationService.get_nutritional_values(first_content)
-        meal = ParseHelper.parse_ingredients(second_response["foods"])
+        meal = InputHelper.parse_ingredients(second_response["foods"])
 
         return meal.model_dump(by_alias=False)
 
